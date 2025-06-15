@@ -1,0 +1,40 @@
+Sample Document for RAG Testing
+
+Introduction to Artificial Intelligence
+
+Artificial Intelligence (AI) is a branch of computer science that aims to create intelligent machines that work and react like humans. Some of the activities computers with artificial intelligence are designed for include:
+
+- Speech recognition
+- Learning
+- Planning
+- Problem solving
+
+Machine Learning
+
+Machine learning is a method of data analysis that automates analytical model building. It is a branch of artificial intelligence based on the idea that systems can learn from data, identify patterns and make decisions with minimal human intervention.
+
+Types of Machine Learning:
+
+1. Supervised Learning: The algorithm learns on a labeled dataset, providing an answer key that the algorithm can use to evaluate its accuracy on training data.
+
+2. Unsupervised Learning: The algorithm studies data to identify patterns. There's no answer key or human operator to provide instruction.
+
+3. Reinforcement Learning: The algorithm learns through trial and error. It receives rewards or penalties for the actions it performs.
+
+Deep Learning
+
+Deep learning is part of a broader family of machine learning methods based on artificial neural networks with representation learning. Learning can be supervised, semi-supervised or unsupervised.
+
+Applications of AI:
+
+- Healthcare: AI can help analyze medical images, assist in drug discovery, and provide personalized treatment recommendations.
+- Finance: AI is used for fraud detection, algorithmic trading, and risk assessment.
+- Transportation: Self-driving cars use AI to navigate and make decisions on the road.
+- Entertainment: AI powers recommendation systems on streaming platforms and gaming.
+
+Future of AI
+
+The future of AI holds immense potential. As technology continues to advance, we can expect to see more sophisticated AI systems that can perform complex tasks, understand natural language better, and integrate seamlessly into our daily lives.
+
+However, with great power comes great responsibility. It's important to develop AI ethically and ensure that these technologies benefit humanity as a whole.
+
