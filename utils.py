@@ -128,7 +128,7 @@ def format_retrieved_context(retrieved_docs: List[dict]) -> str:
         metadata = doc.get('metadata', {})
         source = metadata.get('source', 'Unknown')
         
-        context_parts.append(f"[Source {i}: {source}]\n{content}")
+        context_parts.append(f"[Source {str(i)}: {str(source)}]\n{str(content)}")
     
     return "\n\n".join(context_parts)
 
@@ -160,4 +160,3 @@ def extract_keywords(text: str, max_keywords: int = 10) -> List[str]:
     unique_keywords = list(dict.fromkeys(keywords))  # Preserve order while removing duplicates
     
     return unique_keywords[:max_keywords]
-

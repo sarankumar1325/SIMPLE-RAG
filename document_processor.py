@@ -9,7 +9,40 @@ from typing import List, Dict, Optional, Union
 from pathlib import Path
 import PyPDF2
 import docx
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+# Simple text splitter implementation
+class SimpleTextSplitter:
+    def __init__(self, chunk_size=1000, chunk_overlap=200):
+        self.chunk_size = chunk_size
+        self.chunk_overlap = chunk_overlap
+    
+    def split_text(self, text):
+        if not text:
+            return []
+        
+        chunks = []
+        start = 0
+        
+        while start < len(text):
+            end = start + self.chunk_size
+            chunk = text[start:end]
+            
+            # Try to break at sentence boundary
+            if end < len(text):
+                last_period = chunk.rfind('.')
+                last_newline = chunk.rfind('\n')
+                break_point = max(last_period, last_newline)
+                
+                if break_point > start + self.chunk_size // 2:
+                    chunk = text[start:start + break_point + 1]
+                    end = start + break_point + 1
+            
+            chunks.append(chunk.strip())
+            start = end - self.chunk_overlap
+            
+            if start >= len(text):
+                break
+        
+        return [chunk for chunk in chunks if chunk.strip()]
 from utils import clean_text, get_file_hash, validate_file_type, validate_file_size
 from config import Config
 
@@ -20,11 +53,9 @@ class DocumentProcessor:
     
     def __init__(self):
         self.config = Config()
-        self.text_splitter = RecursiveCharacterTextSplitter(
+        self.text_splitter = SimpleTextSplitter(
             chunk_size=self.config.CHUNK_SIZE,
-            chunk_overlap=self.config.CHUNK_OVERLAP,
-            length_function=len,
-            separators=["\n\n", "\n", " ", ""]
+            chunk_overlap=self.config.CHUNK_OVERLAP
         )
     
     def load_document(self, file_path: Union[str, Path]) -> Dict[str, Union[str, Dict]]:
@@ -252,4 +283,3 @@ class DocumentProcessor:
                 "file_type": file_path.suffix.lower(),
                 "error": str(e)
             }
-
