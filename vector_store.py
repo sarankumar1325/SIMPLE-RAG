@@ -8,8 +8,23 @@ import uuid
 from typing import List, Dict, Optional, Union, Any
 import chromadb
 from chromadb.config import Settings
-from sentence_transformers import SentenceTransformer
 import numpy as np
+
+# Simple embedding function using basic text features
+class SimpleEmbedding:
+    def encode(self, text):
+        # Simple bag-of-words style embedding for demo
+        words = text.lower().split()
+        # Create a simple 384-dimensional vector based on text features
+        vector = np.zeros(384)
+        for i, word in enumerate(words[:100]):  # Use first 100 words
+            hash_val = hash(word) % 384
+            vector[hash_val] += 1
+        # Normalize
+        norm = np.linalg.norm(vector)
+        if norm > 0:
+            vector = vector / norm
+        return vector
 from config import Config
 from utils import format_retrieved_context
 
@@ -32,7 +47,7 @@ class VectorStore:
         )
         
         # Initialize embedding model
-        self.embedding_model = SentenceTransformer(self.config.EMBEDDING_MODEL)
+        self.embedding_model = SimpleEmbedding()
         
         # Get or create collection
         self.collection = self._get_or_create_collection()
@@ -297,4 +312,3 @@ class VectorStore:
         logger.info(f"Batch processing complete: {successful_batches}/{total_batches} batches successful")
         
         return success_rate == 1.0
-

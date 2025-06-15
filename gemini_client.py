@@ -23,7 +23,7 @@ class GeminiClient:
         
         # Initialize the model
         self.model = genai.GenerativeModel(
-            model_name="gemini-pro",
+            model_name="gemini-1.5-flash",
             generation_config=genai.types.GenerationConfig(
                 temperature=self.config.TEMPERATURE,
                 max_output_tokens=self.config.MAX_OUTPUT_TOKENS,
@@ -177,7 +177,8 @@ ANSWER:"""
             
             # Add chunk info if available
             if "chunk_id" in metadata:
-                source_info["chunk"] = f"{metadata['chunk_id'] + 1}/{metadata.get('chunk_count', '?')}"
+                chunk_id = int(metadata['chunk_id']) + 1 if metadata['chunk_id'].isdigit() else metadata['chunk_id']
+                source_info["chunk"] = f"{chunk_id}/{metadata.get('chunk_count', '?')}"
             
             sources.append(source_info)
         
@@ -280,4 +281,3 @@ Keywords:"""
         except Exception as e:
             logger.error(f"Gemini API connection test failed: {e}")
             return False
-
